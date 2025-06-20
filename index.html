@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anti Rabies Vaccine Schedule - Modified Essen Regimen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f9ff 0%, #e8f4ff 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5f3ff;
+        }
+
+        .form-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #1e40af;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e5f3ff;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #1e40af;
+            border: 2px solid #1e40af;
+        }
+
+        .btn-secondary:hover {
+            background: #1e40af;
+            color: white;
+        }
+
+        .schedule-display {
+            display: none;
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .dose-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border: 2px solid #e5f3ff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .dose-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+            border-color: #3b82f6;
+        }
+
+        .dose-number {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .dose-date {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+        }
+
+        .dose-details {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .patient-info {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border: 2px solid #bfdbfe;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .patient-info h3 {
+            color: #1e40af;
+            margin-bottom: 1rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #bfdbfe;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #1e40af;
+        }
+
+        .regimen-info {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 2px solid #fbbf24;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .regimen-info h3 {
+            color: #92400e;
+            margin-bottom: 1rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-completed {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .print-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .print-btn:hover {
+            transform: scale(1.1);
+        }
+
+        @media print {
+            .form-section, .btn, .print-btn {
+                display: none;
+            }
+            body {
+                background: white;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .form-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .schedule-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏥 Anti Rabies Vaccine Schedule</h1>
+        <p>Modified Essen Regimen - Professional Patient Management System</p>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h2 style="color: #1e40af; margin-bottom: 2rem;">Patient Registration & Schedule Generation</h2>
+            
+            <div class="form-section">
+                <div>
+                    <div class="form-group">
+                        <label for="patientName">Patient Name *</label>
+                        <input type="text" id="patientName" placeholder="Enter patient's full name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="patientAge">Age *</label>
+                        <input type="number" id="patientAge" placeholder="Patient age" min="1" max="120" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="patientGender">Gender *</label>
+                        <select id="patientGender" required>
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="patientContact">Contact Number</label>
+                        <input type="tel" id="patientContact" placeholder="Patient contact number">
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="form-group">
+                        <label for="incidentDate">Date of Dog Bite *</label>
+                        <input type="date" id="incidentDate" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="firstDoseDate">First Dose Date *</label>
+                        <input type="date" id="firstDoseDate" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="administrationRoute">Administration Route *</label>
+                        <select id="administrationRoute" required>
+                            <option value="">Select Route</option>
+                            <option value="Intramuscular">Intramuscular (IM)</option>
+                            <option value="Intradermal">Intradermal (ID)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="woundCategory">Wound Category</label>
+                        <select id="woundCategory">
+                            <option value="">Select Category</option>
+                            <option value="Category I">Category I - Touching/feeding animals, licks on intact skin</option>
+                            <option value="Category II">Category II - Nibbling of uncovered skin, minor scratches</option>
+                            <option value="Category III">Category III - Single/multiple bites, licks on broken skin</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center;">
+                <button class="btn" onclick="generateSchedule()">Generate Vaccination Schedule</button>
+                <button class="btn btn-secondary" onclick="clearForm()" style="margin-left: 1rem;">Clear Form</button>
+            </div>
+        </div>
+
+        <div id="scheduleDisplay" class="schedule-display">
+            <div class="patient-info">
+                <h3>📋 Patient Information</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Name:</span>
+                        <span id="displayName"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Age:</span>
+                        <span id="displayAge"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Gender:</span>
+                        <span id="displayGender"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Contact:</span>
+                        <span id="displayContact"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Bite Date:</span>
+                        <span id="displayIncidentDate"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Route:</span>
+                        <span id="displayRoute"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="regimen-info">
+                <h3>💊 Modified Essen Regimen Information</h3>
+                <p><strong>Schedule:</strong> Day 0, 3, 7, 14, 28</p>
+                <p id="regimenDetails"></p>
+                <p><strong>Important:</strong> Ensure proper storage of vaccine (2-8°C) and complete the full course as scheduled.</p>
+            </div>
+
+            <div class="card">
+                <h2 style="color: #1e40af; margin-bottom: 2rem;">📅 Vaccination Schedule</h2>
+                <div id="scheduleGrid" class="schedule-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <button class="print-btn" onclick="window.print()" title="Print Schedule">🖨️</button>
+
+    <script>
+        // Set today's date as default for incident date
+        document.getElementById('incidentDate').value = new Date().toISOString().split('T')[0];
+        document.getElementById('firstDoseDate').value = new Date().toISOString().split('T')[0];
+
+        function generateSchedule() {
+            // Validate required fields
+            const requiredFields = ['patientName', 'patientAge', 'patientGender', 'incidentDate', 'firstDoseDate', 'administrationRoute'];
+            let isValid = true;
+
+            requiredFields.forEach(field => {
+                const element = document.getElementById(field);
+                if (!element.value.trim()) {
+                    element.style.borderColor = '#ef4444';
+                    isValid = false;
+                } else {
+                    element.style.borderColor = '#e5f3ff';
+                }
+            });
+
+            if (!isValid) {
+                alert('Please fill in all required fields marked with *');
+                return;
+            }
+
+            // Get form data
+            const patientData = {
+                name: document.getElementById('patientName').value,
+                age: document.getElementById('patientAge').value,
+                gender: document.getElementById('patientGender').value,
+                contact: document.getElementById('patientContact').value || 'Not provided',
+                incidentDate: document.getElementById('incidentDate').value,
+                firstDoseDate: document.getElementById('firstDoseDate').value,
+                route: document.getElementById('administrationRoute').value,
+                woundCategory: document.getElementById('woundCategory').value || 'Not specified'
+            };
+
+            // Display patient information
+            document.getElementById('displayName').textContent = patientData.name;
+            document.getElementById('displayAge').textContent = patientData.age + ' years';
+            document.getElementById('displayGender').textContent = patientData.gender;
+            document.getElementById('displayContact').textContent = patientData.contact;
+            document.getElementById('displayIncidentDate').textContent = formatDate(patientData.incidentDate);
+            document.getElementById('displayRoute').textContent = patientData.route;
+
+            // Set regimen details
+            const regimenDetails = patientData.route === 'Intramuscular' 
+                ? 'Dosage: 1.0 ml per dose, administered intramuscularly in deltoid muscle.'
+                : 'Dosage: 0.1 ml per dose, administered intradermally over deltoid region.';
+            document.getElementById('regimenDetails').innerHTML = `<strong>Route:</strong> ${patientData.route}<br><strong>${regimenDetails}</strong>`;
+
+            // Generate schedule
+            generateDoseSchedule(patientData.firstDoseDate, patientData.route);
+
+            // Show schedule
+            document.getElementById('scheduleDisplay').style.display = 'block';
+            
+            // Smooth scroll to schedule
+            document.getElementById('scheduleDisplay').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function generateDoseSchedule(firstDoseDate, route) {
+            const scheduleGrid = document.getElementById('scheduleGrid');
+            scheduleGrid.innerHTML = '';
+
+            const doseDays = [0, 3, 7, 14, 28];
+            const doseNames = ['First Dose', 'Second Dose', 'Third Dose', 'Fourth Dose', 'Fifth Dose'];
+            
+            const startDate = new Date(firstDoseDate);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            doseDays.forEach((day, index) => {
+                const doseDate = new Date(startDate);
+                doseDate.setDate(startDate.getDate() + day);
+                
+                const doseCard = document.createElement('div');
+                doseCard.className = 'dose-card';
+                
+                const isPast = doseDate < today;
+                const isToday = doseDate.getTime() === today.getTime();
+                const statusClass = isPast ? 'status-completed' : 'status-pending';
+                const statusText = isPast ? 'Completed' : (isToday ? 'Due Today' : 'Scheduled');
+                
+                doseCard.innerHTML = `
+                    <div class="dose-number">${index + 1}</div>
+                    <div class="dose-date">${formatDate(doseDate.toISOString().split('T')[0])}</div>
+                    <div class="dose-details">
+                        <strong>${doseNames[index]}</strong><br>
+                        Day ${day}<br>
+                        ${route === 'Intramuscular' ? '1.0 ml IM' : '0.1 ml ID'}<br>
+                        <span class="status-badge ${statusClass}">${statusText}</span>
+                    </div>
+                `;
+                
+                scheduleGrid.appendChild(doseCard);
+            });
+        }
+
+        function formatDate(dateString) {
+            const options = { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                weekday: 'short'
+            };
+            return new Date(dateString).toLocaleDateString('en-US', options);
+        }
+
+        function clearForm() {
+            document.querySelectorAll('input, select').forEach(element => {
+                element.value = '';
+                element.style.borderColor = '#e5f3ff';
+            });
+            
+            // Reset default dates
+            document.getElementById('incidentDate').value = new Date().toISOString().split('T')[0];
+            document.getElementById('firstDoseDate').value = new Date().toISOString().split('T')[0];
+            
+            document.getElementById('scheduleDisplay').style.display = 'none';
+        }
+
+        // Auto-set first dose date when incident date changes
+        document.getElementById('incidentDate').addEventListener('change', function() {
+            const incidentDate = new Date(this.value);
+            const firstDoseDate = new Date(incidentDate);
+            
+            // First dose should ideally be on the same day or next available day
+            document.getElementById('firstDoseDate').value = firstDoseDate.toISOString().split('T')[0];
+        });
+    </script>
+</body>
+</html>
